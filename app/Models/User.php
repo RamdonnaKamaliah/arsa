@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -18,10 +19,15 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    'id_user',
+    'nama',
+    'email',
+    'password',
+    'role',
+    'status_blokir',
+    'masa_blokir',
+];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,4 +51,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    protected static function boot()
+{
+    parent::boot();
+
+    static::creating(function ($user) {
+        $user->id_user = Str::uuid();
+    });
+}
 }
