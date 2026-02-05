@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AkunPenggunaController;
+use App\Http\Controllers\Admin\DaftarAlatController;
+use App\Http\Controllers\Admin\DaftarLaporanController;
+use App\Http\Controllers\Admin\KategoriAlatController;
 use App\Http\Controllers\Peminjam\PeminjamDashboardController;
 use App\Http\Controllers\Petugas\PetugasDashboardController;
 use App\Http\Controllers\ProfileController;
@@ -24,6 +28,10 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/akunPengguna', [AkunPenggunaController::class, 'index'])->name('akunPengguna');
+    Route::get('/dataAlat', [DaftarAlatController::class, 'index'])->name('dataAlat');
+    Route::get('/kategoriAlat', [KategoriAlatController::class, 'index'])->name('kategoriAlat');
+    Route::get('/daftarLaporan', [DaftarLaporanController::class, 'index'])->name('daftarLaporan');
 });
 
 //petugas
