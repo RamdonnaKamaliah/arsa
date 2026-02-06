@@ -16,7 +16,7 @@
 
     <aside class="fixed inset-y-0 left-0 z-50 shadow-xl transition-all duration-300 xl:translate-x-0 -translate-x-full"
         id="sidebar">
-        @include('components.AdminSidebar')
+        @include('components.PetugasSidebar')
     </aside>
 
     <div class="flex-1 flex flex-col min-w-0 xl:ml-68 transition-all duration-300">
@@ -24,7 +24,7 @@
         <div class="absolute top-0 left-0 right-0 min-h-72 bg-primary"></div>
 
         <div class="sticky top-0 z-40 w-full px-2 pt-4">
-            @include('components.AdminNavbar')
+            @include('components.PetugasNavbar')
         </div>
 
         <main class="w-full px-6 py-6 relative">

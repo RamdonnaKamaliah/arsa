@@ -1,24 +1,25 @@
-<!doctype html>
-<html>
+@extends('layouts.petugas')
+@section('title', 'dashboard petugas')
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    @vite('resources/css/app.css')
-</head>
+@section('content')
 
-<body>
-    <h1 class="text-3xl font-bold underline text-red-700">
-        ini halaman dashboar petugas
-    </h1>
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
-            Logout
-        </button>
-    </form>
+        {{-- Card --}}
+        <div class="bg-white rounded-2xl shadow p-6">
+            <h2 class="text-gray-600 text-sm">Total User</h2>
+            <p class="text-3xl font-bold text-gray-800 mt-2">120</p>
+        </div>
 
-</body>
+        <div class="bg-white rounded-2xl shadow p-6">
+            <h2 class="text-gray-600 text-sm">Total Alat</h2>
+            <p class="text-3xl font-bold text-gray-800 mt-2">45</p>
+        </div>
 
-</html>
+        <div class="bg-white rounded-2xl shadow p-6">
+            <h2 class="text-gray-600 text-sm">Peminjaman Aktif</h2>
+            <p class="text-3xl font-bold text-gray-800 mt-2">8</p>
+        </div>
+
+    </div>
+@endsection

@@ -11,7 +11,7 @@ class KategoriAlat extends Model
         'nama_kategori'
     ];
 
-    public function alat() {
-        return $this->belongsTo(Alat::class);
+    public function alats() {
+        return $this->hasMany(Alat::class, 'kategori_alat_id');
     }
 }

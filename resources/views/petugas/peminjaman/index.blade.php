@@ -1,6 +1,6 @@
-@extends('layouts.peminjam')
+@extends('layouts.petugas')
 
-@section('title', 'dashboard peminjaman')
+@section('title', 'daftar peminjaman')
 
 @section('content')
 
