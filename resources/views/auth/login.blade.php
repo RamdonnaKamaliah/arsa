@@ -1,11 +1,11 @@
 <x-guest-layout>
 
     <div class="min-h-screen flex items-center justify-center px-4"
-        style="background-image: url('/Background/Animated Shape (15).svg')">
+        style="background-image: url('asset/background/')">
 
         <div class="w-full max-w-lg bg-white rounded-2xl shadow-lg p-10">
             <div class="py-5 flex items-center justify-center gap-2">
-                <img src="{{ asset('logo/rekreasi-logo_1-removebg-preview.png') }}" alt=""
+                <img src="{{ asset('assets/logo/logo arsa.png') }}" alt=""
                     class="w-10 gap-0 bg-white rounded-md border border-gray-300">
                 <p
                     class="text-2xl font-semibold text-transparent bg-clip-text bg-linear-to-r from-primary via-blue-600 to-secondary">
