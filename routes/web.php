@@ -37,7 +37,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/akunPengguna', [AkunPenggunaController::class, 'index'])->name('akunPengguna');
     Route::get('/dataAlat', [DaftarAlatController::class, 'index'])->name('dataAlat');
-    Route::get('/kategoriAlat', [KategoriAlatController::class, 'index'])->name('kategoriAlat');
+    Route::resource('kategori-alat', KategoriAlatController::class);
     Route::get('/daftarLaporan', [DaftarLaporanController::class, 'index'])->name('daftarLaporan');
 });
 

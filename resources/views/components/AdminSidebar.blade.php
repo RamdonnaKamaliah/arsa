@@ -43,9 +43,9 @@
         </a>
 
         {{-- Kategori Alat --}}
-        <a href="{{ route('admin.kategoriAlat') }}"
+        <a href="{{ route('admin.kategori-alat') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
-            {{ request()->routeIs('admin.kategoriAlat*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
+            {{ request()->routeIs('admin.kategori-alat*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-tags w-5 text-center"></i>
             <span>Kategori Alat</span>
         </a>
