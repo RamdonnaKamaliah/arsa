@@ -36,10 +36,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/akunPengguna', [AkunPenggunaController::class, 'index'])->name('akunPengguna');
-    Route::get('/dataAlat', [DaftarAlatController::class, 'index'])->name('dataAlat');
-    Route::resource('kategori-alat', KategoriAlatController::class);
     Route::get('/daftarLaporan', [DaftarLaporanController::class, 'index'])->name('daftarLaporan');
-});
+    Route::resource('/kategori-alat', KategoriAlatController::class);
+    Route::resource('/data-alat', DaftarAlatController::class);
+});     
 
 //petugas
 Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->name('petugas.')->group(function () {

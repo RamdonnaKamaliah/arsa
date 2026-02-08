@@ -35,15 +35,15 @@
         </a>
 
         {{-- Daftar Alat --}}
-        <a href="{{ route('admin.dataAlat') }}"
+        <a href="{{ route('admin.data-alat.index') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
-            {{ request()->routeIs('admin.dataAlat*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
+            {{ request()->routeIs('admin.data-alat*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-toolbox w-5 text-center"></i>
             <span>Daftar Alat</span>
         </a>
 
         {{-- Kategori Alat --}}
-        <a href="{{ route('admin.kategori-alat') }}"
+        <a href="{{ route('admin.kategori-alat.index') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
             {{ request()->routeIs('admin.kategori-alat*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-tags w-5 text-center"></i>

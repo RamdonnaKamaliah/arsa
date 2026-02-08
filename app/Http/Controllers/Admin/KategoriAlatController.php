@@ -36,7 +36,7 @@ class KategoriAlatController extends Controller
             ]);
 
             return redirect()
-                ->route('admin.kategori.index')
+                ->route('admin.kategori-alat.index')
                 ->with('success', 'Kategori berhasil ditambahkan!');
 
         } catch (\Exception $e) {
@@ -48,11 +48,11 @@ class KategoriAlatController extends Controller
 
     public function edit(String $id){
         $kategori = KategoriAlat::where('id', $id)->firstOrFail();
-        return view('admin.kategori_alat.edit');
+        return view('admin.kategori_alat.edit', compact('kategori'));
     }
 
     public function update(Request $request, $id){
-        $kategori = KategoriAlat::where('íd', $id)->firstOrFail();
+        $kategori = KategoriAlat::where('id', $id)->firstOrFail();
 
         $request->validate([
             'nama_kategori' => 'required|string|max:100|unique:kategori_alats,nama_kategori',
@@ -63,14 +63,13 @@ class KategoriAlatController extends Controller
         ]);
 
          try {
-            KategoriAlat::update([
-                'id_kategori'   => Str::uuid(),
+            $kategori->update([
                 'nama_kategori' => $request->nama_kategori
             ]);
 
             return redirect()
-                ->route('admin.kategori.index')
-                ->with('success', 'Kategori berhasil ditambahkan!');
+                ->route('admin.kategori-alat.index')
+                ->with('success', 'Kategori berhasil di ubah!');
 
         } catch (\Exception $e) {
             return back()
@@ -79,11 +78,12 @@ class KategoriAlatController extends Controller
         }
     }
 
-    public function destroy($id, $alat) {
+    public function destroy(String $id) {
         $kategori = KategoriAlat::where('id', $id)->firstOrFail();
 
-        $alatCount = $alat->alat()->count();
+        $kategori->delete();
 
+        return redirect()->route('admin.kategori-alat.index');
         
     }
 }
