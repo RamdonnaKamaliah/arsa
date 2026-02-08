@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Alat extends Model
 {
+    protected $table = 'alat';
+    
     protected $fillable = [
     'id_alat',
-    'kategori_alat_id',
+    'id_kategori',
     'nama_alat',
     'stok',
     'foto_alat'
     ];
 
     public function kategori() {
-        return $this->belongsTo(KategoriAlat::class, 'kategori_alat_id');
+        return $this->belongsTo(KategoriAlat::class, 'id_kategori');
     }
 }
