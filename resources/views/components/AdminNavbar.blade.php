@@ -35,7 +35,7 @@
                        border-2 border-gray-200
                        shadow-sm
                        group-hover:border-primary transition">
-                <img src="{{ asset('assets/logo/logo arsa.png') }}" alt="Profile" class="w-full h-full object-cover">
+                <img src="{{ asset('assets/logo/logo-arsa.png') }}" alt="Profile" class="w-full h-full object-cover">
             </div>
 
             {{-- Status --}}

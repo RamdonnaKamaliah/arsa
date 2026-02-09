@@ -17,8 +17,8 @@
         @yield('title')
     </h2>
 
-    {{-- RIGHT : Profile --}}
-    <a href="#"
+    
+    <a href="{{ route('peminjam.profile-peminjam.index') }}"
         class="flex items-center gap-3 rounded-xl
                hover:bg-primary_light/20
                px-3 py-2 transition group">
@@ -44,10 +44,10 @@
         {{-- Nama & Role --}}
         <div class="hidden sm:block leading-tight">
             <p class="text-gray-800 font-semibold text-sm">
-                Admin1
+                {{ $peminjam->name ?? 'peminjam 1' }}
             </p>
             <p class="text-gray-500 text-xs">
-                {{ $admin->role ?? 'Administrator' }}
+                {{ $peminjam->role ?? 'Peminjam' }}
             </p>
         </div>
 

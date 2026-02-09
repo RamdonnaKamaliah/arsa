@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Aktivitas;
 use App\Models\KategoriAlat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -34,6 +35,8 @@ class KategoriAlatController extends Controller
                 'id_kategori'   => Str::uuid(),
                 'nama_kategori' => $request->nama_kategori
             ]);
+
+            Aktivitas::simpanLog('Tambah', 'KATEGORI', 'Menambahkan kategori alat baru:' . $request->nama_kategori);
 
             return redirect()
                 ->route('admin.kategori-alat.index')
@@ -67,6 +70,8 @@ class KategoriAlatController extends Controller
                 'nama_kategori' => $request->nama_kategori
             ]);
 
+            Aktivitas::simpanLog('Update', 'Kategori', 'Mengubah kategori alat:' . $request->nama_kategori);
+
             return redirect()
                 ->route('admin.kategori-alat.index')
                 ->with('success', 'Kategori berhasil di ubah!');
@@ -81,9 +86,13 @@ class KategoriAlatController extends Controller
     public function destroy(String $id) {
         $kategori = KategoriAlat::where('id', $id)->firstOrFail();
 
+        $namaKategori = $kategori->nama_kategori;
+
         $kategori->delete();
 
-        return redirect()->route('admin.kategori-alat.index');
+        Aktivitas::simpanLog('Hapus', 'Kategori Alat', 'Menghapus kategori alat' . $namaKategori);
+
+        return redirect()->route('admin.kategori-alat.index')->with('success', 'data berhasil dihapus');
         
     }
 }

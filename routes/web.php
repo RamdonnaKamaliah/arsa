@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAktivitasController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminPeminjamanController;
+use App\Http\Controllers\Admin\AdminPengembalianController;
 use App\Http\Controllers\Admin\AkunPenggunaController;
 use App\Http\Controllers\Admin\DaftarAlatController;
 use App\Http\Controllers\Admin\DaftarLaporanController;
@@ -8,6 +11,7 @@ use App\Http\Controllers\Admin\KategoriAlatController;
 use App\Http\Controllers\Peminjam\DataAlatController;
 use App\Http\Controllers\Peminjam\PeminjamanAlatController;
 use App\Http\Controllers\Peminjam\PeminjamDashboardController;
+use App\Http\Controllers\Peminjam\PeminjamProfileController;
 use App\Http\Controllers\Peminjam\PengembalianAlatController;
 use App\Http\Controllers\Petugas\LaporanController;
 use App\Http\Controllers\Petugas\PeminjamanController;
@@ -35,10 +39,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-    Route::get('/akunPengguna', [AkunPenggunaController::class, 'index'])->name('akunPengguna');
-    Route::get('/daftarLaporan', [DaftarLaporanController::class, 'index'])->name('daftarLaporan');
     Route::resource('/kategori-alat', KategoriAlatController::class);
     Route::resource('/data-alat', DaftarAlatController::class);
+    Route::resource('/akun-pengguna', AkunPenggunaController::class);
+    Route::resource('/aktivitas', AdminAktivitasController::class);
+    Route::resource('/peminjaman', AdminPeminjamanController::class);
+    Route::resource('/pengembalian', AdminPengembalianController::class);
 });     
 
 //petugas
@@ -57,6 +63,7 @@ Route::middleware(['auth', 'role:peminjam'])->prefix('peminjam')->name('peminjam
     Route::get('/dataAlat', [DataAlatController::class, 'index'])->name('dataAlat');
     Route::get('/peminjamAlat', [PeminjamanAlatController::class, 'index'])->name('peminjamAlat');
     Route::get('/pengembalianAlat', [PengembalianAlatController::class, 'index'])->name('pengembalianAlat');
+    Route::resource('/profile-peminjam', PeminjamProfileController::class);
 });
 
 

@@ -4,6 +4,144 @@
 
 @section('content')
 
-    <h1 class="text-red-500">ini halaman akun pengguna</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 px-1 mb-2">
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
+            <div class="flex items-center justify-between mb-2">
+                <p class="text-xs text-slate-500">Total Articles</p>
+                <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
+                    <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
+                </div>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
+            <p class="text-[11px] text-slate-400">Article Count</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
+            <div class="flex items-center justify-between mb-2">
+                <p class="text-xs text-slate-500">Total Articles</p>
+                <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
+                    <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
+                </div>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
+            <p class="text-[11px] text-slate-400">Article Count</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
+            <div class="flex items-center justify-between mb-2">
+                <p class="text-xs text-slate-500">Total Articles</p>
+                <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
+                    <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
+                </div>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
+            <p class="text-[11px] text-slate-400">Article Count</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
+            <div class="flex items-center justify-between mb-2">
+                <p class="text-xs text-slate-500">Total Articles</p>
+                <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
+                    <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
+                </div>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
+            <p class="text-[11px] text-slate-400">Article Count</p>
+        </div>
+    </div>
+
+    <div class="p-4 md:p-2 overflow-x-hidden mt-4 min-h-screen">
+        <div class="bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 p-4 rounded-lg shadow-md dark:shadow-lg">
+            <h2 class="text-center text-xl font-bold mb-4 text-gray-800 dark:text-white">Data Alat Management</h2>
+            <div class="flex flex-wrap justify-end gap-2">
+                <a href="{{ route('admin.akun-pengguna.create') }}">
+                    <button
+                        class="px-6 py-3 bg-linear-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold shadow-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300">
+                        <i class="fas fa-plus mr-2"></i>
+                        Create Data
+                    </button>
+                </a>
+            </div>
+
+
+            <div class="overflow-x-auto mt-4">
+                <table id="akunTable" class="w-full border border-gray-300 text-xs md:text-sm dark:border-gray-600">
+                    <thead class="bg-gray-200 text-gray-800 dark:bg-slate-700 dark:text-gray-100">
+                        <tr>
+                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Nama</th>
+                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Email</th>
+                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Role</th>
+                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Status Blokir</th>
+                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Masa Blokir</th>
+                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($akun as $row)
+                            <tr>
+                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2 text-center">{{ $row->name }}
+                                </td>
+                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2 text-center">{{ $row->email }}
+                                </td>
+                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2 text-center">{{ $row->role }}
+                                </td>
+                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2 text-center">
+                                    @if ($row->status_blokir)
+                                        <span class="text-red-600 font-semibold">Diblokir</span>
+                                    @else
+                                        <span class="text-green-600 font-semibold">Aktif</span>
+                                    @endif
+                                </td>
+                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2 text-center">
+                                    {{ $row->masa_blokir ?? '-' }}
+                                </td>
+                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2 text-center">
+                                    <div class="flex justify-center space-x-1 md:space-x-2">
+
+                                        <a href="{{ route('admin.akun-pengguna.show', $row->id) }}"
+                                            class="text-green-600 hover:text-white bg-green-50 hover:bg-green-500 dark:bg-green-900/30 dark:hover:bg-green-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
+                                            <i class="fas fa-eye"></i> <span class="hidden sm:inline">Show</span>
+                                        </a>
+
+                                        <form action="{{ route('admin.akun-pengguna.destroy', $row->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button"
+                                                class="btn-delete text-red-600 hover:text-white bg-red-50 hover:bg-red-500 
+    dark:bg-red-900/30 dark:hover:bg-red-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer transform hover:scale-110"
+                                                data-title="{{ $row->nama_alat }}">
+                                                <i class="fas fa-trash-alt"></i> Delete
+                                            </button>
+
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                // Cek apakah jquery jalan
+                console.log("jQuery version: " + $.fn.jquery);
+
+                if (!$.fn.DataTable.isDataTable('#kategoriTable')) {
+                    $('#akunTable').DataTable({
+                        "responsive": true,
+                        "language": {
+                            "search": "Cari Kategori:",
+                            "lengthMenu": "Tampilkan _MENU_ data",
+                        }
+                    });
+                }
+            });
+        </script>
+    @endpush
+
 
 @endsection

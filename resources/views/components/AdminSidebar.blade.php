@@ -6,7 +6,7 @@
 
     {{-- Logo --}}
     <div class="py-6 flex items-center justify-center gap-2">
-        <img src="{{ asset('assets/logo/logo arsa.png') }}"
+        <img src="{{ asset('assets/logo/logo-arsa.png') }}"
             class="w-10 h-10 rounded-xl border border-gray-200 bg-white shadow-sm">
         <span class="text-xl font-bold text-slate-800">
             ARSA
@@ -27,9 +27,9 @@
         </a>
 
         {{-- Akun Pengguna --}}
-        <a href="{{ route('admin.akunPengguna') }}"
+        <a href="{{ route('admin.akun-pengguna.index') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
-            {{ request()->routeIs('admin.akunPengguna') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
+            {{ request()->routeIs('admin.akun-pengguna*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-users w-5 text-center"></i>
             <span>Akun Pengguna</span>
         </a>
@@ -50,12 +50,28 @@
             <span>Kategori Alat</span>
         </a>
 
-        {{-- Laporan --}}
-        <a href="{{ route('admin.daftarLaporan') }}"
+        {{-- peminjaman --}}
+        <a href="{{ route('admin.peminjaman.index') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
-            {{ request()->routeIs('admin.daftarLaporan*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
-            <i class="fa-solid fa-file-lines w-5 text-center"></i>
-            <span>Laporan</span>
+            {{ request()->routeIs('admin.peminjaman*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
+            <i class="fa-solid fa-box-open w-5 text-center"></i>
+            <span>Peminjaman</span>
+        </a>
+
+        {{-- pengembalian --}}
+        <a href="{{ route('admin.pengembalian.index') }}"
+            class="flex items-center gap-3 px-4 py-2 rounded-xl transition
+            {{ request()->routeIs('admin.pengembalian*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
+            <i class="fa-solid fa-undo w-5 text-center"></i>
+            <span>Pengembalian</span>
+        </a>
+
+        {{-- Aktivitas --}}
+        <a href="{{ route('admin.aktivitas.index') }}"
+            class="flex items-center gap-3 px-4 py-2 rounded-xl transition
+            {{ request()->routeIs('admin.aktivitas*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
+            <i class="fa-solid fa-clock w-5 text-center"></i>
+            <span>Aktivitas</span>
         </a>
 
         <li>

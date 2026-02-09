@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Aktivitas;
 use App\Models\Alat;
 use App\Models\KategoriAlat;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 
 class DaftarAlatController extends Controller
@@ -50,6 +52,8 @@ class DaftarAlatController extends Controller
                 'foto_alat' => $fotoPath
             ]);
 
+            Aktivitas::simpanLog('Tambah', 'Alat', 'Menambahkan alat baru:' . $request->nama_alat);
+
             return redirect()->route('admin.data-alat.index')->with('success', 'data berhasil ditambah');
         }catch (\Exception $e){
             return back()->withInput()->with('error', 'gagal menyimpan data' . $e->getMessage());
@@ -69,7 +73,7 @@ class DaftarAlatController extends Controller
 
     $request->validate([
         'nama_alat' => 'required|string|max:255',
-        'id_kategori' => 'required',
+        'id_kategori' => 'required|exists:kategori_alats,id',
         'stok' => 'required|integer',
         'foto_alat' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
     ]);
@@ -91,20 +95,35 @@ class DaftarAlatController extends Controller
 
     $alat->save();
 
+    Aktivitas::simpanLog('Update', 'Alat', 'Mengubah kategori alat baru:' . $request->nama_alat);
+
     return redirect()->route('admin.data-alat.index')
         ->with('success', 'Data alat berhasil diupdate!');
 }
 
 
-    public function destroy($id) {
-        $alat = Alat::where('id', $id)->firstOrFail();
-        try {
-            $alat->delete();
-            return redirect()->route('admin.data-alat.index')->with('success', 'data berhasil dihapus');
-        } catch (Exception $e) {
-            return redirect()->route('admin.data-alat.index')->with('error', 'gagal menghapus data: ' . $e->getMessage());
+   public function destroy($id) 
+{
+    
+    $alat = Alat::findOrFail($id); 
+
+    try {
+
+        $namaAlat = $alat->nama_alat;
+
+        if ($alat->foto_alat && \Storage::disk('public')->exists($alat->foto_alat)) {
+            \Storage::disk('public')->delete($alat->foto_alat);
         }
+
+        $alat->delete();
+
+        Aktivitas::simpanLog('HAPUS', 'ALAT', 'Menghapus alat: ' . $namaAlat);
+
+        return redirect()->route('admin.data-alat.index')->with('success', 'Data berhasil dihapus');
+    } catch (Exception $e) {
+        return redirect()->route('admin.data-alat.index')->with('error', 'Gagal menghapus data: ' . $e->getMessage());
     }
+}
 
 
     
