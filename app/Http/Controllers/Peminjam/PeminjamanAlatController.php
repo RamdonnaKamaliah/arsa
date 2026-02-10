@@ -60,8 +60,8 @@ class PeminjamanAlatController extends Controller
 
     public function show(String $id){
         
-    $peminjaman = Peminjaman::with('detail.alat')->findOrFail($id);
-    return view('peminjam.peminjamanAlat.index', compact('peminjaman'));
+     $peminjaman = Peminjaman::with('user')->findOrFail($id);
+    return view('peminjam.peminjamanAlat.show', compact('peminjaman'));
     
     }
 }

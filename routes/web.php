@@ -52,9 +52,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->name('petugas.')->group(function () {
 
     Route::get('/dashboard', [PetugasDashboardController::class, 'index'])->name('dashboard');
-    Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');
     Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian');
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
+
+    // peminjaman
+    Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
+    Route::post('/peminjaman/{id}/approve', [PeminjamanController::class, 'approve'])->name('peminjaman.approve');
+    Route::post('/peminjaman/{id}/reject', [PeminjamanController::class, 'reject'])->name('peminjaman.reject');
+    Route::get('/petugas/peminjaman/{id}/scan', [PeminjamanController::class, 'scan'])->name('peminjaman.scan');
+    Route::post('/petugas/peminjaman/scan/verify', [PeminjamanController::class, 'verifyScan'])->name('peminjaman.scan.verify');
 });
 
 //peminjam
@@ -86,6 +92,9 @@ Route::post('/keranjang/hapus/{id}', [KeranjangController::class, 'hapus'])
     //simpan dari menu cekout ke tabel peminjaman
     Route::post('/keranjang/checkout', [PeminjamanAlatController::class, 'store'])
     ->name('keranjang.checkout');
+
+    Route::get('/peminjaman/{id}', [PeminjamanAlatController::class, 'show'])->name('peminjaman.show');
+
 
 
 

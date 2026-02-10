@@ -27,9 +27,9 @@
         </a>
 
         {{-- Peminjaman --}}
-        <a href="{{ route('petugas.peminjaman') }}"
+        <a href="{{ route('petugas.peminjaman.index') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
-            {{ request()->routeIs('petugas.peminjaman') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
+            {{ request()->routeIs('petugas.peminjaman*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-users w-5 text-center"></i>
             <span>Peminjaman</span>
         </a>
