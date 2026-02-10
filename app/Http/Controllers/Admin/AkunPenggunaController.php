@@ -34,8 +34,6 @@ class AkunPenggunaController extends Controller
             'role' => $request->role
         ]);
 
-        Aktivitas::simpanLog('Tambah', 'Akun Pengguna', 'Menambahkan akun pengguna baru:' . $request->name);
-
         Password::sendResetLink([
             'email' => $user->email
         ]);

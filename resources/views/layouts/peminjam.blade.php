@@ -7,7 +7,34 @@
     <title> @yield('title')</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <style>
+        .dataTables_wrapper .dataTables_length,
+        .dataTables_wrapper .dataTables_filter,
+        .dataTables_wrapper .dataTables_info,
+        .dataTables_wrapper .dataTables_processing,
+        .dataTables_wrapper .dataTables_paginate {
+            color: #64748b !important;
+            /* text-slate-500 */
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
 
+        table.dataTable thead th {
+            background-color: #f0fdf9 !important;
+            /* bg-slate-50 */
+            color: #475569 !important;
+            /* text-slate-600 */
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background: #0abab5 !important;
+            /* Warna primary kamu */
+            color: white !important;
+            border: none !important;
+            border-radius: 50px;
+        }
+    </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
@@ -21,7 +48,7 @@
 
     <div class="flex-1 flex flex-col min-w-0 xl:ml-68 transition-all duration-300">
 
-        <div class="absolute top-0 left-0 right-0 min-h-72 bg-primary"></div>
+        <div class="fixed top-0 left-0 right-0 min-h-72 bg-primary"></div>
 
         <div class="sticky top-0 z-40 w-full px-2 pt-4">
             @include('components.PeminjamNavbar')
@@ -37,6 +64,63 @@
             © 2026 **ARSA System**
         </footer>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+    @stack('scripts')
+
+    <script>
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "{{ session('success') }}",
+                showConfirmButton: false,
+                timer: 2000,
+                customClass: {
+                    popup: 'rounded-2xl',
+                }
+            });
+        @endif
+
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Waduh...',
+                text: "{{ session('error') }}",
+                confirmButtonColor: '#3085d6',
+            });
+        @endif
+    </script>
+
+    <script>
+        document.querySelectorAll('.btn-delete').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const form = this.closest('form');
+                Swal.fire({
+                    title: 'Apakah kamu yakin?',
+                    text: "Data kategori ini akan dihapus permanen!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal',
+                    customClass: {
+                        popup: 'rounded-2xl',
+                        confirmButton: 'rounded-lg',
+                        cancelButton: 'rounded-lg'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 

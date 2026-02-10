@@ -21,7 +21,6 @@ return new class extends Migration
             $table->timestamp('tanggal_pengambilan_sebenarnya')->nullable();
             $table->text('alasan_peminjaman');
             $table->foreignId('disetujui_oleh')->nullable()->constrained('users');
-
             $table->enum('status', ['pending', 'disetujui', 'ditolak', 'diambil', 'kembali', 'terlambat'])->default('pending');
             $table->string('qr_token')->nullable()->unique();
             $table->timestamps();

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DaftarAlatController;
 use App\Http\Controllers\Admin\DaftarLaporanController;
 use App\Http\Controllers\Admin\KategoriAlatController;
 use App\Http\Controllers\Peminjam\DataAlatController;
+use App\Http\Controllers\Peminjam\KeranjangController;
 use App\Http\Controllers\Peminjam\PeminjamanAlatController;
 use App\Http\Controllers\Peminjam\PeminjamDashboardController;
 use App\Http\Controllers\Peminjam\PeminjamProfileController;
@@ -60,10 +61,34 @@ Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->name('petugas.')
 Route::middleware(['auth', 'role:peminjam'])->prefix('peminjam')->name('peminjam.')->group(function () {
 
     Route::get('/dashboard', [PeminjamDashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dataAlat', [DataAlatController::class, 'index'])->name('dataAlat');
+    Route::resource('data-alat', DataAlatController::class);
     Route::get('/peminjamAlat', [PeminjamanAlatController::class, 'index'])->name('peminjamAlat');
     Route::get('/pengembalianAlat', [PengembalianAlatController::class, 'index'])->name('pengembalianAlat');
     Route::resource('/profile-peminjam', PeminjamProfileController::class);
+    
+    Route::get('/keranjang', [KeranjangController::class, 'index'])
+    ->name('keranjang.index');
+
+Route::post('/keranjang/tambah/{id}', [KeranjangController::class, 'tambah'])
+    ->name('keranjang.tambah');
+
+Route::post('/keranjang/hapus/{id}', [KeranjangController::class, 'hapus'])
+    ->name('keranjang.hapus');
+
+    Route::post('/keranjang/checkout', [KeranjangController::class, 'checkout'])
+    ->name('keranjang.checkout');
+
+    Route::post('/keranjang/update/{id}', [KeranjangController::class, 'update'])
+    ->name('keranjang.update');
+
+
+
+    //simpan dari menu cekout ke tabel peminjaman
+    Route::post('/keranjang/checkout', [PeminjamanAlatController::class, 'store'])
+    ->name('keranjang.checkout');
+
+
+
 });
 
 

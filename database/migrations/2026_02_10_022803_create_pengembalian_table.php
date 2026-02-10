@@ -16,7 +16,6 @@ return new class extends Migration
             $table->uuid('id_pengembalian')->unique();
             $table->foreignId('id_peminjaman')->constrained('peminjaman')->onDelete('cascade');
             $table->timestamp('tanggal_pengembalian_sebenarnya');
-            $table->enum('kondisi_alat', ['baik', 'rusak', 'hilang', 'tidak lengkap'])->default('baik');
             $table->boolean('status_pelanggaran')->default(false);
             $table->text('catatan')->nullable();
             $table->timestamps();

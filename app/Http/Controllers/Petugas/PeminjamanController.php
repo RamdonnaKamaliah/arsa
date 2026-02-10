@@ -10,4 +10,8 @@ class PeminjamanController extends Controller
     public function index() {
         return view('petugas.peminjaman.index');
     }
+
+    public function store(Request $request){
+        
+    } 
 }

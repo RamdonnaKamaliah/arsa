@@ -6,7 +6,7 @@
 
     {{-- Logo --}}
     <div class="py-6 flex items-center justify-center gap-2">
-        <img src="{{ asset('assets/logo/logo arsa.png') }}"
+        <img src="{{ asset('assets/logo/logo-arsa.png') }}"
             class="w-10 h-10 rounded-xl border border-gray-200 bg-white shadow-sm">
         <span class="text-xl font-bold text-slate-800">
             ARSA
@@ -27,9 +27,9 @@
         </a>
 
         {{-- Daftar Alat --}}
-        <a href="{{ route('peminjam.dataAlat') }}"
+        <a href="{{ route('peminjam.data-alat.index') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
-            {{ request()->routeIs('peminjam.dataAlat*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
+            {{ request()->routeIs('peminjam.data-alat*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-toolbox w-5 text-center"></i>
             <span>Daftar Alat</span>
         </a>
@@ -48,6 +48,14 @@
             {{ request()->routeIs('peminjam.pengembalianAlat*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-toolbox w-5 text-center"></i>
             <span>Pengembalian</span>
+        </a>
+
+        {{-- keranjang --}}
+        <a href="{{ route('peminjam.keranjang.index') }}"
+            class="flex items-center gap-3 px-4 py-2 rounded-xl transition
+            {{ request()->routeIs('peminjam.keranjang*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
+            <i class="fa-solid fa-box w-5 text-center"></i>
+            <span>Keranjang</span>
         </a>
 
 
