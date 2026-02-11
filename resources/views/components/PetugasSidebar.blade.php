@@ -35,7 +35,7 @@
         </a>
 
         {{-- pengembalian --}}
-        <a href="{{ route('petugas.pengembalian') }}"
+        <a href="{{ route('petugas.pengembalian.index') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
             {{ request()->routeIs('petugas.pengembalian*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-toolbox w-5 text-center"></i>

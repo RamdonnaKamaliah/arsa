@@ -14,14 +14,14 @@ class PengembalianController extends Controller
         return view('petugas.pengembalian.index', compact('pengembalian'));
     }
 
-    public function veryfyPengembalian(Request $request){
+    public function verifyPengembalian(Request $request, $id){
         $request->validate([
             'peminjaman_id' => 'required|exists:peminjaman,id',
             'kondisi_kembali' => 'required|in:baik,rusak,hilang',
             'catatan' => 'nullable|string'
         ]);
 
-        $peminjaman = Peminjaman::with('detail')->findOrFail($request->peminjaman_id);
+        $peminjaman = Peminjaman::with('detail.alat')->findOrFail($request->peminjaman_id);
         
         if($peminjaman->status !== 'diambil') {
             return back()->with('error', 'Peminjaman tidak valid');
@@ -71,29 +71,28 @@ class PengembalianController extends Controller
         'hari_terlambat' => $hariTerlambat
     ]);
 
-    foreach ($peminjaman->detail as $detail){
-        // Jika kondisi baik, kembalikan stok normal
+     foreach ($peminjaman->detail as $detail) {
+        
+        // ✅ Validasi quantity adalah numeric
+        $qty = (int) $detail->quantity; // atau $detail->jumlah sesuai nama kolom
+        
+        if ($qty <= 0) {
+            continue; // Skip jika quantity tidak valid
+        }
+
         if ($kondisiBaik) {
-            $detail->alat->increment('stok', $detail->quantity);
+            $detail->alat->increment('stok', $qty);
         }
-        // Jika rusak, tandai sebagai rusak (tidak masuk stok tersedia)
         elseif ($request->kondisi_kembali === 'rusak') {
-            $detail->alat->increment('stok_rusak', $detail->quantity);
+            $detail->alat->increment('stok_rusak', $qty);
         }
-        // Jika hilang, tidak kembalikan stok sama sekali
-        // Stok akan kembali ketika user sudah mengganti
+        // Jika hilang, tidak kembalikan stok
     }
 
-    Aktivitas::create([
-        'user_id' => auth()->id(),
-        'peminjaman_id' => $peminjaman->id,
-        'aktivitas' => 'Pengembalian Alat',
-        'keterangan' => "Pengembalian peminjaman #{$peminjaman->id} - Kondisi: {$request->kondisi_kembali}" . 
-                       ($terlambat ? " - Terlambat {$hariTerlambat} hari" : ""),
-        'tanggal' => now()
-    ]);
+    Aktivitas::simpanLog('TAMBAH', 'PENGEMBALIAN', 'Mengajukan pengembalian baru');
 
-        return back()->with('success', 'Penggantian alat berhasil dikonfirmasi. User sudah dapat meminjam kembali');
+
+        return redirect()->route('petugas.pengembalian.index')->with('success', 'pengembalian berhasil');
 
         
     }

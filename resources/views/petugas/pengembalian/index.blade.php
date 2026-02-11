@@ -13,10 +13,6 @@
 
                 {{-- Info --}}
                 <div>
-                    <h2 class="font-bold text-lg">
-                        {{ $p->user->name }}
-                    </h2>
-
                     <p class="text-sm text-gray-500">
                         Pengambilan: {{ $p->tanggal_pengambilan_sebenarnya }}
                     </p>
@@ -48,12 +44,12 @@
     </div>
 
 
-    {{-- Modal Pengembalian --}}
     <div id="returnModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
 
-        <div class="bg-white w-96 rounded-2xl p-6 relative">
+        <div class="bg-white w-[420px] rounded-2xl p-6 relative shadow-xl">
 
-            <button onclick="closeReturnModal()" class="absolute top-3 right-3 text-gray-500 hover:text-black">
+            <button type="button" onclick="closeReturnModal()"
+                class="absolute top-3 right-3 text-gray-500 hover:text-black text-lg">
                 ✕
             </button>
 
@@ -61,47 +57,112 @@
                 Verifikasi Pengembalian
             </h2>
 
-            {{-- Scan Section --}}
-            <div id="reader" class="w-72 mx-auto mb-4"></div>
+            {{-- ✅ FORM ACTION DIPERBAIKI --}}
+            <form id="returnForm" method="POST" action="" enctype="multipart/form-data" class="space-y-4">
 
-            <form method="POST" action="#" class="space-y-3">
                 @csrf
 
                 <input type="hidden" name="peminjaman_id" id="return_peminjaman_id">
                 <input type="hidden" name="qr_result" id="qr_result">
 
-                <div>
-                    <label class="text-sm">Kondisi Alat</label>
-                    <select name="kondisi_kembali" class="w-full border rounded-lg p-2 mt-1">
-                        <option value="baik">Baik</option>
-                        <option value="rusak">Rusak</option>
-                        <option value="hilang">Hilang</option>
-                    </select>
+                {{-- ================= STEP 1 ================= --}}
+                <div id="stepScan">
+
+                    <div class="flex justify-center gap-2 mb-4">
+                        <button type="button" onclick="showScan()"
+                            class="px-3 py-1 bg-blue-600 text-white rounded-lg text-sm">
+                            Scan
+                        </button>
+
+                        <button type="button" onclick="showUpload()" class="px-3 py-1 bg-gray-200 rounded-lg text-sm">
+                            Upload
+                        </button>
+                    </div>
+
+                    <div id="scanSection">
+                        <div id="reader" class="w-72 mx-auto"></div>
+                    </div>
+
+                    <div id="uploadSection" class="hidden">
+                        <input type="file" name="qr_file" accept="image/*" class="w-full border rounded-lg p-2 text-sm">
+                    </div>
+
+                    <button type="button" onclick="validateQR()"
+                        class="w-full bg-blue-600 text-white py-2 rounded-xl mt-3">
+                        Verifikasi QR
+                    </button>
+
                 </div>
 
-                <div>
-                    <label class="text-sm">Catatan (opsional)</label>
-                    <textarea name="catatan" class="w-full border rounded-lg p-2 mt-1" rows="2"></textarea>
+                {{-- ================= STEP 2 ================= --}}
+                <div id="stepForm" class="hidden">
+
+                    <div class="bg-green-50 text-green-700 text-sm p-2 rounded-lg text-center">
+                        QR Valid ✅
+                    </div>
+
+                    <div>
+                        <label class="text-sm font-medium">Kondisi Alat</label>
+                        <select name="kondisi_kembali" class="w-full border rounded-lg p-2 mt-1">
+                            <option value="baik">Baik</option>
+                            <option value="rusak">Rusak</option>
+                            <option value="hilang">Hilang</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="text-sm font-medium">Catatan</label>
+                        <textarea name="catatan" rows="2" class="w-full border rounded-lg p-2 mt-1" placeholder="Opsional..."></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-xl">
+                        Konfirmasi Pengembalian
+                    </button>
+
                 </div>
 
-                <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-xl hover:bg-green-700">
-                    Konfirmasi Pengembalian
-                </button>
             </form>
-
         </div>
     </div>
+
 
 
     <script src="https://unpkg.com/html5-qrcode"></script>
 
     <script>
         let html5QrCode;
+        let scannedResult = null;
 
         function openReturnModal(id) {
             document.getElementById('returnModal').classList.remove('hidden');
             document.getElementById('returnModal').classList.add('flex');
             document.getElementById('return_peminjaman_id').value = id;
+
+            // ✅ SET FORM ACTION SECARA DINAMIS
+            document.getElementById('returnForm').action = `/petugas/pengembalian/verify/${id}`;
+
+            resetModal();
+        }
+
+        function resetModal() {
+            document.getElementById('stepScan').classList.remove('hidden');
+            document.getElementById('stepForm').classList.add('hidden');
+            document.getElementById('qr_result').value = '';
+            scannedResult = null;
+        }
+
+        function closeReturnModal() {
+            if (html5QrCode) {
+                html5QrCode.stop().catch(err => console.log(err));
+            }
+
+            document.getElementById('returnModal').classList.add('hidden');
+            document.getElementById('returnModal').classList.remove('flex');
+        }
+
+        function showScan() {
+            document.getElementById('scanSection').classList.remove('hidden');
+            document.getElementById('uploadSection').classList.add('hidden');
 
             html5QrCode = new Html5Qrcode("reader");
 
@@ -111,18 +172,35 @@
                     fps: 10,
                     qrbox: 220
                 },
-                qrCodeMessage => {
+                (qrCodeMessage) => {
+                    scannedResult = qrCodeMessage;
                     document.getElementById('qr_result').value = qrCodeMessage;
                     html5QrCode.stop();
                 }
             );
         }
 
-        function closeReturnModal() {
+        function showUpload() {
             if (html5QrCode) html5QrCode.stop();
-            document.getElementById('returnModal').classList.add('hidden');
-            document.getElementById('returnModal').classList.remove('flex');
+
+            document.getElementById('scanSection').classList.add('hidden');
+            document.getElementById('uploadSection').classList.remove('hidden');
+        }
+
+        function validateQR() {
+            if (!document.getElementById('qr_result').value &&
+                !document.querySelector('input[name="qr_file"]').files.length) {
+
+                alert("Scan atau upload QR terlebih dahulu!");
+                return;
+            }
+
+            // tampilkan step form
+            document.getElementById('stepScan').classList.add('hidden');
+            document.getElementById('stepForm').classList.remove('hidden');
         }
     </script>
+
+
 
 @endsection
