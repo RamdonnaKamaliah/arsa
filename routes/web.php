@@ -62,6 +62,7 @@ Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->name('petugas.')
     Route::get('/petugas/peminjaman/{id}/scan', [PeminjamanController::class, 'scan'])->name('peminjaman.scan');
     Route::post('/petugas/peminjaman/scan/verify', [PeminjamanController::class, 'verifyScan'])->name('peminjaman.scan.verify');
     Route::post('/peminjaman/{id}/reject', [PeminjamanController::class, 'reject'])->name('peminjaman.reject');
+    Route::post('/peminjaman/{id}/veryfyPengembalian', [PengembalianController::class, 'veryfyPengembalian'])->name('peminjaman.veryfyPengembalian  ');
 
 });
 
