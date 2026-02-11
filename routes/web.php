@@ -61,6 +61,8 @@ Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->name('petugas.')
     Route::post('/peminjaman/{id}/reject', [PeminjamanController::class, 'reject'])->name('peminjaman.reject');
     Route::get('/petugas/peminjaman/{id}/scan', [PeminjamanController::class, 'scan'])->name('peminjaman.scan');
     Route::post('/petugas/peminjaman/scan/verify', [PeminjamanController::class, 'verifyScan'])->name('peminjaman.scan.verify');
+    Route::post('/peminjaman/{id}/reject', [PeminjamanController::class, 'reject'])->name('peminjaman.reject');
+
 });
 
 //peminjam
@@ -75,14 +77,11 @@ Route::middleware(['auth', 'role:peminjam'])->prefix('peminjam')->name('peminjam
     Route::get('/keranjang', [KeranjangController::class, 'index'])
     ->name('keranjang.index');
 
-Route::post('/keranjang/tambah/{id}', [KeranjangController::class, 'tambah'])
-    ->name('keranjang.tambah');
+    Route::post('/keranjang/tambah/{id}', [KeranjangController::class, 'tambah'])->name('keranjang.tambah');
 
-Route::post('/keranjang/hapus/{id}', [KeranjangController::class, 'hapus'])
-    ->name('keranjang.hapus');
+    Route::post('/keranjang/hapus/{id}', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
 
-    Route::post('/keranjang/checkout', [KeranjangController::class, 'checkout'])
-    ->name('keranjang.checkout');
+    Route::post('/keranjang/checkout', [KeranjangController::class, 'checkout'])->name('keranjang.checkout');
 
     Route::post('/keranjang/update/{id}', [KeranjangController::class, 'update'])
     ->name('keranjang.update');

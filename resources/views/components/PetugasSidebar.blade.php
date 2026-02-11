@@ -6,7 +6,7 @@
 
     {{-- Logo --}}
     <div class="py-6 flex items-center justify-center gap-2">
-        <img src="{{ asset('assets/logo/logo arsa.png') }}"
+        <img src="{{ asset('assets/logo/logo-arsa.png') }}"
             class="w-10 h-10 rounded-xl border border-gray-200 bg-white shadow-sm">
         <span class="text-xl font-bold text-slate-800">
             ARSA

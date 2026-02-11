@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Zxing\QrReader;
+use Illuminate\Support\Facades\DB;
+
 
 
 
@@ -23,6 +25,7 @@ class PeminjamanController extends Controller
         $peminjaman = Peminjaman::findOrFail($id);
         
         $peminjaman->status = 'disetujui';
+        $peminjaman->disetujui_oleh = $peminjaman->id_user;
         $peminjaman->save();
 
         $qrText = "PEMINJAMAN-ID" . $peminjaman->id;
@@ -46,40 +49,73 @@ class PeminjamanController extends Controller
         return view('petugas.peminjaman.scan', compact('peminjaman'));
     }
 
-   
+
 
 public function verifyScan(Request $request)
 {
-    $peminjaman = Peminjaman::findOrFail($request->peminjaman_id);
+    DB::transaction(function () use ($request) {
 
-    $qrText = $request->qr_result;
+        $peminjaman = Peminjaman::with('detail.alat')
+            ->findOrFail($request->peminjaman_id);
 
-    // Kalau upload file
-    if (!$qrText && $request->hasFile('qr_file')) {
-        $qrcode = new QrReader($request->file('qr_file')->getPathname());
-        $qrText = $qrcode->text();
-    }
+        // 1️⃣ Validasi status
+        if ($peminjaman->status !== 'disetujui') {
+            abort(400, 'QR tidak bisa digunakan');
+        }
 
-    if (!$qrText) {
-        return back()->with('error', 'QR tidak terbaca');
-    }
+        // 2️⃣ Validasi QR
+        $qrText = $request->qr_result;
 
-    // Validasi QR
-    if ($qrText !== 'PEMINJAMAN-ID' . $peminjaman->id) {
-        return back()->with('error', 'QR tidak valid, proses dibatalkan');
-    }
+        if (!$qrText && $request->hasFile('qr_file')) {
+            $qrcode = new QrReader($request->file('qr_file')->getPathname());
+            $qrText = $qrcode->text();
+        }
 
-    // Update peminjaman
-    $peminjaman->update([
-        'status' => 'diambil',
-        'tanggal_pengambilan_sebenarnya' => now(),
-    ]);
+        if ($qrText !== 'PEMINJAMAN-ID' . $peminjaman->id) {
+            abort(400, 'QR tidak valid');
+        }
+
+        // 3️⃣ CEK STOK SEMUA ALAT
+        foreach ($peminjaman->detail as $detail) {
+            if ($detail->alat->stok < $detail->jumlah) {
+                abort(400, 'Stok alat ' . $detail->alat->nama_alat . ' tidak mencukupi');
+            }
+        }
+
+        // 4️⃣ KURANGI STOK
+        foreach ($peminjaman->detail as $detail) {
+            $alat = $detail->alat;
+            $alat->stok -= $detail->jumlah;
+            $alat->save();
+        }
+
+        // 5️⃣ UPDATE PEMINJAMAN
+        $peminjaman->update([
+            'status' => 'diambil',
+            'tanggal_pengambilan_sebenarnya' => now(),
+        ]);
+    });
 
     return redirect()
         ->route('petugas.peminjaman.index')
-        ->with('success', 'QR valid, alat berhasil diambil');
+        ->with('success', 'QR valid, barang berhasil diambil');
 }
 
+    public function reject(Request $request, $id)
+    {
+        $request->validate([
+            'alasan_penolakan' => 'required|string'
+        ]);
+
+        $peminjaman = Peminjaman::findOrFail($id);
+
+        $peminjaman->update([
+            'status' => 'ditolak',
+            'alasan_penolakan' => $request->alasan_penolakan
+        ]);
+
+        return back()->with('success', 'Peminjaman berhasil ditolak');
+    }
 
 
 }

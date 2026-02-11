@@ -13,10 +13,17 @@ class Peminjaman extends Model
         'id_user',
         'tanggal_pengambilan_rencana',
         'tanggal_pengembalian_rencana',
+         'tanggal_pengambilan_sebenarnya',
         'alasan_peminjaman',
         'status',
-        'qr_token'
+        'qr_token',
+        'alasan_penolakan'
     ];
+
+    protected $casts = [
+    'tanggal_pengambilan_sebenarnya' => 'datetime',
+];
+
 
     public function user() {
         return $this->belongsTo(User::class, 'id_user');
@@ -29,4 +36,6 @@ class Peminjaman extends Model
     public function pengembalian() {
         return $this->hasOne(Pengembalian::class, 'id_peminjaman', 'id');
     }
+
+   
 }

@@ -44,26 +44,28 @@
                         </form>
 
                         {{-- Reject --}}
-                        <form action="{{ route('petugas.peminjaman.reject', $p->id) }}" method="POST">
-                            @csrf
-                            <button class="px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700">
-                                Tolak
-                            </button>
-                        </form>
+                        <button type="button" onclick="openRejectModal({{ $p->id }})"
+                            class="px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700">
+                            Tolak
+                        </button>
 
                     </div>
+                @elseif ($p->status == 'ditolak')
+                    <p class="text-red-500 italic">
+                        Peminjaman Ditolak
+                    </p>
+                @elseif ($p->status == 'disetujui')
+                    <button onclick="openScanModal({{ $p->id }})"
+                        class="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700">
+                        Scan QR
+                    </button>
                 @else
-                    @if ($p->status == 'disetujui')
-                        <button onclick="openScanModal({{ $p->id }})"
-                            class="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700">
-                            Scan QR
-                        </button>
-                    @else
-                        <p class="text-gray-500 italic">Sudah diproses</p>
-                    @endif
+                    <p class="text-gray-500 italic">
+                        Sudah diambil
+                    </p>
                 @endif
-            </div>
-        @endforeach
+    </div>
+    @endforeach
 
     </div>
 
@@ -112,6 +114,66 @@
         </div>
     </div>
 
+    {{-- modal penolakan --}}
+    <div id="rejectModal"
+        class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 transition-opacity duration-200 opacity-0">
+
+        <div class="bg-white rounded-2xl p-6 w-96 transform transition-all duration-200 scale-95" id="rejectBox">
+
+            <h2 class="text-lg font-bold mb-4">Alasan Penolakan</h2>
+
+            <form id="rejectForm" method="POST">
+                @csrf
+
+                <textarea name="alasan_penolakan" class="w-full border rounded-lg p-2 mb-4 focus:ring-2 focus:ring-red-400"
+                    placeholder="Masukkan alasan penolakan..." required></textarea>
+
+                <div class="flex justify-end gap-2">
+                    <button type="button" onclick="closeRejectModal()" class="px-4 py-2 bg-gray-400 text-white rounded-lg">
+                        Batal
+                    </button>
+
+                    <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                        Konfirmasi Tolak
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        function openRejectModal(id) {
+            const modal = document.getElementById('rejectModal');
+            const box = document.getElementById('rejectBox');
+            const form = document.getElementById('rejectForm');
+
+            form.action = `/petugas/peminjaman/${id}/reject`;
+
+            modal.classList.remove('hidden');
+
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                box.classList.remove('scale-95');
+                box.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeRejectModal() {
+            const modal = document.getElementById('rejectModal');
+            const box = document.getElementById('rejectBox');
+
+            modal.classList.add('opacity-0');
+            box.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+    </script>
+
+
+
 
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script>
@@ -148,43 +210,40 @@
             document.getElementById('uploadSection').classList.remove('hidden');
         }
 
-        <
-        script >
-            function submitScan(result) {
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = "{{ route('petugas.peminjaman.scan.verify') }}";
+        function submitScan(result) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = "{{ route('petugas.peminjaman.scan.verify') }}";
 
-                const csrf = document.createElement('input');
-                csrf.type = 'hidden';
-                csrf.name = '_token';
-                csrf.value = "{{ csrf_token() }}";
+            const csrf = document.createElement('input');
+            csrf.type = 'hidden';
+            csrf.name = '_token';
+            csrf.value = "{{ csrf_token() }}";
 
-                const pid = document.createElement('input');
-                pid.type = 'hidden';
-                pid.name = 'peminjaman_id';
-                pid.value = document.getElementById('peminjaman_id').value;
+            const pid = document.createElement('input');
+            pid.type = 'hidden';
+            pid.name = 'peminjaman_id';
+            pid.value = document.getElementById('peminjaman_id').value;
 
-                const qr = document.createElement('input');
-                qr.type = 'hidden';
-                qr.name = 'qr_result';
-                qr.value = result;
+            const qr = document.createElement('input');
+            qr.type = 'hidden';
+            qr.name = 'qr_result';
+            qr.value = result;
 
-                form.appendChild(csrf);
-                form.appendChild(pid);
-                form.appendChild(qr);
+            form.appendChild(csrf);
+            form.appendChild(pid);
+            form.appendChild(qr);
 
-                document.body.appendChild(form);
-                form.submit();
-            }
+            document.body.appendChild(form);
+            form.submit();
+        }
 
 
-
-    function closeScanModal() {
-    if (html5QrCode) html5QrCode.stop();
-    document.getElementById('scanModal').classList.add('hidden');
-    document.getElementById('scanModal').classList.remove('flex');
-    }
+        function closeScanModal() {
+            if (html5QrCode) html5QrCode.stop();
+            document.getElementById('scanModal').classList.add('hidden');
+            document.getElementById('scanModal').classList.remove('flex');
+        }
     </script>
 
 

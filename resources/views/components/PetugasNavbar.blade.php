@@ -5,6 +5,25 @@
            rounded-2xl shadow-md
            ">
 
+    <div class="flex items-center gap-4">
+
+        <button class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition"
+            onclick="document.getElementById('mobileSidebar').classList.remove('hidden')">
+            <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+
+
+        <div class="leading-tight">
+            <h3 class="text-lg font-bold text-gray-800 uppercase tracking-wide">
+                @yield('title')
+            </h3>
+            <p class="text-xs text-gray-500 hidden sm:block">
+                <span class="text-primary font-bold">ARSA</span> - <span class="text-gray-800 font-bold">Aplikasi
+                    Rekapitulasi Sarana Alat</span>
+            </p>
+        </div>
+    </div>
+
     {{-- LEFT : Page Title --}}
     <h2 class="text-lg font-semibold text-gray-800 flex items-center gap-3">
 
@@ -13,8 +32,6 @@
             onclick="document.getElementById('mobileSidebar').classList.remove('hidden')">
             <i class="fa-solid fa-bars text-lg"></i>
         </button>
-
-        @yield('title')
     </h2>
 
     {{-- RIGHT : Profile --}}
@@ -30,7 +47,7 @@
                        border-2 border-gray-200
                        shadow-sm
                        group-hover:border-primary transition">
-                <img src="{{ asset('assets/logo/logo arsa.png') }}" alt="Profile" class="w-full h-full object-cover">
+                <img src="{{ asset('assets/logo/logo-arsa.png') }}" alt="Profile" class="w-full h-full object-cover">
             </div>
 
             {{-- Status --}}

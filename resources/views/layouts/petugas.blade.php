@@ -21,7 +21,7 @@
 
     <div class="flex-1 flex flex-col min-w-0 xl:ml-68 transition-all duration-300">
 
-        <div class="absolute top-0 left-0 right-0 min-h-72 bg-primary"></div>
+        <div class="fixed top-0 left-0 right-0 min-h-72 bg-primary"></div>
 
         <div class="sticky top-0 z-40 w-full px-2 pt-4">
             @include('components.PetugasNavbar')
@@ -37,6 +37,64 @@
             © 2026 **ARSA System**
         </footer>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    @stack('scripts')
+
+
+    <script>
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "{{ session('success') }}",
+                showConfirmButton: false,
+                timer: 2000,
+                customClass: {
+                    popup: 'rounded-2xl',
+                }
+            });
+        @endif
+
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Waduh...',
+                text: "{{ session('error') }}",
+                confirmButtonColor: '#3085d6',
+            });
+        @endif
+    </script>
+
+    <script>
+        document.querySelectorAll('.btn-delete').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const form = this.closest('form');
+                Swal.fire({
+                    title: 'Apakah kamu yakin?',
+                    text: "Data kategori ini akan dihapus permanen!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal',
+                    customClass: {
+                        popup: 'rounded-2xl',
+                        confirmButton: 'rounded-lg',
+                        cancelButton: 'rounded-lg'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
+
 
 </body>
 
