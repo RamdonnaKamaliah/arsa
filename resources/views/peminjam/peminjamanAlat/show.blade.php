@@ -7,7 +7,7 @@
     <div class="pt-6 px-4 flex justify-center">
         <div class="w-full bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8">
 
-             <div class="mb-6">
+            <div class="mb-6">
                 <a href="{{ route('peminjam.peminjamAlat') }}"
                     class="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-2">
                     <i class="fas fa-arrow-left text-xl"></i>
@@ -80,6 +80,22 @@
                         </span>
                     </div>
                 @endforeach
+            </div>
+
+            <div
+                class="text-center p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                <h3 class="text-lg font-bold mb-4 text-slate-800 dark:text-white">Kode QR Peminjaman</h3>
+
+                <div class="inline-block p-4 bg-white rounded-xl mb-4 border border-slate-100">
+                    {!! QrCode::size(200)->generate($peminjaman->id_peminjaman) !!}
+                </div>
+
+                <p class="text-xs text-slate-500 mb-6">Gunakan kode ini saat pengambilan alat di gudang.</p>
+
+                <a href="{{ route('peminjam.peminjaman.downloadQr', $peminjaman->id) }}"
+                    class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-blue-500/30 transform hover:-translate-y-1">
+                    <i class="fas fa-download mr-2"></i> Unduh Kode QR
+                </a>
             </div>
 
             {{-- QR Code --}}

@@ -13,9 +13,13 @@ use Illuminate\Support\Str;
 class PeminjamanAlatController extends Controller
 {
     public function index() {
-        $peminjaman = Peminjaman::with('user')->latest()->get();
-        return view('peminjam.peminjamanAlat.index', compact('peminjaman'));
-    }
+    $peminjaman = Peminjaman::where('id_user', auth()->id())
+                    ->with('user')
+                    ->latest()
+                    ->get();
+
+    return view('peminjam.peminjamanAlat.index', compact('peminjaman'));
+}
 
     public function store(Request $request) {
         $request->validate([
@@ -56,6 +60,26 @@ class PeminjamanAlatController extends Controller
 
     return redirect()->route('peminjam.peminjamAlat')->with('success', 'Berhasil mengajukan pinjaman!');
         
+    }
+
+    // Tambahkan di dalam class PeminjamanAlatController
+
+    public function downloadQr($id)
+    {
+        $peminjaman = Peminjaman::where('id_user', auth()->id())->findOrFail($id);
+
+        // Jika Anda menggunakan library Simple Software IO QR Code
+        // Anda bisa men-generate ulang datanya untuk diunduh sebagai file
+        $qrCode = \QrCode::format('png')
+                        ->size(500)
+                        ->margin(2)
+                        ->generate($peminjaman->id_peminjaman);
+
+        $fileName = 'QR_ARSA_' . $peminjaman->id . '.png';
+
+        return response($qrCode)
+                ->header('Content-Type', 'image/png')
+                ->header('Content-Disposition', 'attachment; filename="' . $fileName . '"');
     }
 
     public function show(String $id){

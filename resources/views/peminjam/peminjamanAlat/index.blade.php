@@ -10,52 +10,52 @@
 
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total Articles</p>
+                <p class="text-xs text-slate-500">Total peminjamans</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
                     <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
             <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
-            <p class="text-[11px] text-slate-400">Article Count</p>
+            <p class="text-[11px] text-slate-400">peminjaman Count</p>
         </div>
 
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total Articles</p>
+                <p class="text-xs text-slate-500">Total peminjamans</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
                     <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
             <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
-            <p class="text-[11px] text-slate-400">Article Count</p>
+            <p class="text-[11px] text-slate-400">peminjaman Count</p>
         </div>
 
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total Articles</p>
+                <p class="text-xs text-slate-500">Total peminjamans</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
                     <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
             <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
-            <p class="text-[11px] text-slate-400">Article Count</p>
+            <p class="text-[11px] text-slate-400">peminjaman Count</p>
         </div>
 
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total Articles</p>
+                <p class="text-xs text-slate-500">Total peminjamans</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
                     <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
             <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
-            <p class="text-[11px] text-slate-400">Article Count</p>
+            <p class="text-[11px] text-slate-400">peminjaman Count</p>
         </div>
     </div>
 
     <div class="p-4 md:p-2 overflow-x-hidden mt-4 min-h-screen">
         <div class="bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 p-4 rounded-lg shadow-md dark:shadow-lg">
-            <h2 class="text-center text-xl font-bold mb-4 text-gray-800 dark:text-white">Data Pengajuan Peminjaman</h2>
+            <h2 class="text-center text-xl font-bold mb-4 text-gray-800 dark:text-white">Daftar Peminjaman</h2>
 
 
             <div class="overflow-x-auto mt-4">

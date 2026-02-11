@@ -11,9 +11,6 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Zxing\QrReader;
 use Illuminate\Support\Facades\DB;
 
-
-
-
 class PeminjamanController extends Controller
 {
     public function index() {

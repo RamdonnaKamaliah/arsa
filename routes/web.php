@@ -66,6 +66,8 @@ Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->name('petugas.')
     // UBAH JADI
 Route::post('/pengembalian/verify/{id}', [PengembalianController::class, 'verifyPengembalian'])
     ->name('petugas.pengembalian.verifyPengembalian');
+
+    
 });
 
 //peminjam
@@ -89,7 +91,8 @@ Route::middleware(['auth', 'role:peminjam'])->prefix('peminjam')->name('peminjam
     Route::post('/keranjang/update/{id}', [KeranjangController::class, 'update'])
     ->name('keranjang.update');
 
-
+    Route::get('peminjaman-alat/{id}/download-qr', [PeminjamanAlatController::class, 'downloadQr'])
+         ->name('peminjaman.downloadQr');
 
     //simpan dari menu cekout ke tabel peminjaman
     Route::post('/keranjang/checkout', [PeminjamanAlatController::class, 'store'])
