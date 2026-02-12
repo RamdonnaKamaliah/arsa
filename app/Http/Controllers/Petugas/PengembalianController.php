@@ -15,7 +15,7 @@ class PengembalianController extends Controller
 {
     $peminjaman = Peminjaman::with('pengembalian')
         ->where('status', 'diambil')
-        ->orWhere('status', 'kembali')
+        ->orWhere('status', 'kembali')->latest()
         ->get();
 
     return view('petugas.pengembalian.index', compact('peminjaman'));
@@ -37,7 +37,7 @@ class PengembalianController extends Controller
         }
 
         // Set tanggal pengembalian sebenarnya
-        // $tanggalKembaliSebenarnya = now();
+        $tanggalKembaliSebenarnya = now();
         $tanggalKembaliRencana = \Carbon\Carbon::parse($peminjaman->tanggal_pengembalian_rencana);
 
         // Cek apakah pengembalian terlambat 
@@ -65,9 +65,9 @@ class PengembalianController extends Controller
                 'alasan_blokir' => "Menunggu penggantian alat yang {$request->kondisi_kembali}"
             ]);
         } else {
-    $peminjaman->update([
-        'status' => 'bermasalah'
-    ]);
+    // $peminjaman->update([
+    //     'status' => 'bermasalah'
+    // ]);
 }
         
         // ✅ UPDATE PEMINJAMAN - Set status jadi 'dikembalikan'

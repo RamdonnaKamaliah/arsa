@@ -53,7 +53,7 @@
         </div>
     </div>
 
-   
+
     <div class="container mx-auto py-8">
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold text-gray-800">Riwayat Pengembalian Alat</h2>
@@ -61,15 +61,15 @@
         </div>
 
         <div class="bg-white shadow-md rounded-lg overflow-hidden">
-            <table class="min-w-full leading-normal">
+            <table class="min-w-full leading-normal" id="pengembalianTable">
                 <thead>
                     <tr
                         class="bg-gray-100 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         <th class="px-5 py-3">No</th>
-                        <th class="px-5 py-3">Nama Alat</th>
                         <th class="px-5 py-3">Tanggal Pinjam</th>
                         <th class="px-5 py-3">Tanggal Kembali</th>
                         <th class="px-5 py-3">Status</th>
+                        <th class="px-5 py-3">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,12 +78,7 @@
                             <td class="px-5 py-5 text-sm">
                                 {{ $index + 1 }}
                             </td>
-                            <td class="px-5 py-5 text-sm">
-                                <p class="text-gray-900 font-medium">
-                                    {{-- Asumsi ada relasi ke model Alat/Barang --}}
-                                    {{ $item->alat->nama_alat ?? 'Nama Alat Tidak Ditemukan' }}
-                                </p>
-                            </td>
+
                             <td class="px-5 py-5 text-sm text-gray-600">
                                 {{ $item->created_at->format('d M Y') }}
                             </td>
@@ -94,7 +89,15 @@
                             <td class="px-5 py-5 text-sm">
                                 <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                     <span aria-hidden class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                                    <span class="relative text-xs uppercase">{{ $item->status }}</span>
+                                    <span class="relative text-xs uppercase">{{ $item->status }}/selesai</span>
+                                </span>
+                            </td>
+                            <td class="px-5 py-5 text-sm">
+                                <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                    <a href="{{ route('peminjam.pengembalianAlat.show', $item->id) }}"
+                                        class="text-green-600 hover:text-white bg-green-50 hover:bg-green-500 dark:bg-green-900/30 dark:hover:bg-green-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
+                                        <i class="fas fa-eye"></i> <span class="hidden sm:inline">Show</span>
+                                    </a>
                                 </span>
                             </td>
                         </tr>
@@ -110,24 +113,24 @@
         </div>
     </div>
 
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            // Cek apakah jquery jalan
-            console.log("jQuery version: " + $.fn.jquery);
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                // Cek apakah jquery jalan
+                console.log("jQuery version: " + $.fn.jquery);
 
-            if (!$.fn.DataTable.isDataTable('#kategoriTable')) {
-                $('#peminjamanTable').DataTable({
-                    "responsive": true,
-                    "language": {
-                        "search": "Cari Kategori:",
-                        "lengthMenu": "Tampilkan _MENU_ data",
-                    }
-                });
-            }
-        });
-    </script>
-@endpush
+                if (!$.fn.DataTable.isDataTable('#kategoriTable')) {
+                    $('#pengembalianTable').DataTable({
+                        "responsive": true,
+                        "language": {
+                            "search": "Cari Kategori:",
+                            "lengthMenu": "Tampilkan _MENU_ data",
+                        }
+                    });
+                }
+            });
+        </script>
+    @endpush
 
 
 @endsection

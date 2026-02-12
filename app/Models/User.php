@@ -60,4 +60,10 @@ class User extends Authenticatable
         $user->id_user = Str::uuid();
     });
 }
+
+public function aktivitas()
+{
+    return $this->hasMany(Aktivitas::class, 'id_user');
+}
+
 }

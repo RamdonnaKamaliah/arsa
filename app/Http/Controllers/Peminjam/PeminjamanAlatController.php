@@ -82,9 +82,9 @@ class PeminjamanAlatController extends Controller
                 ->header('Content-Disposition', 'attachment; filename="' . $fileName . '"');
     }
 
-    public function show(String $id){
+   public function show(String $id){
         
-     $peminjaman = Peminjaman::with('user')->findOrFail($id);
+     $peminjaman = Peminjaman::with('user',)->findOrFail($id);
     return view('peminjam.peminjamanAlat.show', compact('peminjaman'));
     
     }

@@ -28,6 +28,23 @@ class AuthenticatedSessionController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
+         if ($user) {
+
+        // Cek jika password belum dibuat
+        if ($user->password === null) {
+            return back()->withErrors([
+                'email' => 'Akun ini belum dibuat password. Silakan cek email untuk membuat password.',
+            ]);
+        }
+
+        // ✅ Cek jika akun diblokir
+        if ($user->status_blokir) {
+            return back()->withErrors([
+                'email' => 'Akun Anda telah diblokir. Silakan hubungi admin.',
+            ]);
+        }
+    }
+
         if($user && $user->password === null){
             return back()->withErrors(['email' => 'Akun ini belum dibuat password. Silakan cek email untuk membuat password.',
     ]);

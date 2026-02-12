@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AkunPenggunaController;
 use App\Http\Controllers\Admin\DaftarAlatController;
 use App\Http\Controllers\Admin\DaftarLaporanController;
 use App\Http\Controllers\Admin\KategoriAlatController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Peminjam\DataAlatController;
 use App\Http\Controllers\Peminjam\KeranjangController;
 use App\Http\Controllers\Peminjam\PeminjamanAlatController;
@@ -23,12 +24,16 @@ use App\Models\Pengembalian;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return auth()->check()
+        ? redirect()->route('dashboard')
+        : redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -46,6 +51,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('/aktivitas', AdminAktivitasController::class);
     Route::resource('/peminjaman', AdminPeminjamanController::class);
     Route::resource('/pengembalian', AdminPengembalianController::class);
+    Route::patch('/akun-pengguna/{id}/unblock', [AkunPenggunaController::class, 'unblock'])->name('akun-pengguna.unblock');
+
 });     
 
 //petugas
@@ -63,9 +70,14 @@ Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->name('petugas.')
     Route::get('/petugas/peminjaman/{id}/scan', [PeminjamanController::class, 'scan'])->name('peminjaman.scan');
     Route::post('/petugas/peminjaman/scan/verify', [PeminjamanController::class, 'verifyScan'])->name('peminjaman.scan.verify');
     Route::post('/peminjaman/{id}/reject', [PeminjamanController::class, 'reject'])->name('peminjaman.reject');
-    // UBAH JADI
+
 Route::post('/pengembalian/verify/{id}', [PengembalianController::class, 'verifyPengembalian'])
     ->name('petugas.pengembalian.verifyPengembalian');
+
+    Route::get('/laporan/peminjaman', [LaporanController::class, 'index'])->name('laporan.index');
+
+    Route::get('/laporan/peminjaman/unduh', [LaporanController::class, 'unduh'])->name('laporan.unduh');
+
 
     
 });
@@ -77,6 +89,7 @@ Route::middleware(['auth', 'role:peminjam'])->prefix('peminjam')->name('peminjam
     Route::resource('data-alat', DataAlatController::class);
     Route::get('/peminjamAlat', [PeminjamanAlatController::class, 'index'])->name('peminjamAlat');
     Route::get('/pengembalianAlat', [PengembalianAlatController::class, 'index'])->name('pengembalianAlat');
+    Route::get('/pengembalianAlat/{id}', [PengembalianAlatController::class, 'show'])->name('pengembalianAlat.show');
     Route::resource('/profile-peminjam', PeminjamProfileController::class);
     
     Route::get('/keranjang', [KeranjangController::class, 'index'])

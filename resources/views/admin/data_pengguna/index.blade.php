@@ -114,6 +114,19 @@
                                             </button>
 
                                         </form>
+                                        @if ($row->status_blokir)
+                                            <form action="{{ route('admin.akun-pengguna.unblock', $row->id) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Yakin ingin membuka blokir akun ini?')">
+                                                @csrf
+                                                @method('PATCH')
+
+                                                <button
+                                                    class="px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600">
+                                                    Unblock
+                                                </button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

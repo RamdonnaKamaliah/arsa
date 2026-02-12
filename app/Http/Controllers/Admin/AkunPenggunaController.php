@@ -43,11 +43,33 @@ class AkunPenggunaController extends Controller
         return redirect()->route('admin.akun-pengguna.index')->with('success', 'akun berhasil di buat');
     }
 
+    public function unblock($id)
+{
+    $user = User::findOrFail($id);
+
+    $user->update([
+        'status_blokir' => false
+    ]);
+
+    Aktivitas::simpanLog(
+        'Update',
+        'Akun Pengguna',
+        'Membuka blokir akun pengguna ' . $user->name
+    );
+
+    return redirect()
+        ->route('admin.akun-pengguna.index')
+        ->with('success', 'Akun berhasil dibuka blokirnya');
+}
+
+
     public function destroy(String $id) {
         $akun = User::where('id', $id)->firstOrFail();
 
         $namaAkun = $akun->name;
         
+        $akun->
+        $akun->aktivitas()->delete(); 
         $akun->delete();
 
         Aktivitas::simpanLog('Hapus', 'Akun Pengguna', 'Menghapus akun pengguna' . $namaAkun);

@@ -11,12 +11,19 @@ class PengembalianAlatController extends Controller
 {
    public function index() {
     $peminjaman = Peminjaman::where('id_user', auth()->id())
-                    ->where('status', 'kembali') // Menambahkan filter status
+                    ->where('status', 'kembali') 
                     ->with('user')
                     ->latest()
                     ->get();
 
-    return view('peminjam.peminjamanAlat.index', compact('peminjaman'));
+    return view('peminjam.pengembalianAlat.index', compact('peminjaman'));
 }
+
+ public function show(String $id){
+        
+     $peminjaman = Peminjaman::with('user')->findOrFail($id);
+    return view('peminjam.pengembalianAlat.show', compact('peminjaman'));
+    
+    }
 
 }

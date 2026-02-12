@@ -84,13 +84,29 @@
 
             <div
                 class="text-center p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
-                <h3 class="text-lg font-bold mb-4 text-slate-800 dark:text-white">Kode QR Peminjaman</h3>
 
-                <div class="inline-block p-4 bg-white rounded-xl mb-4 border border-slate-100">
+                {{-- <div class="inline-block p-4 bg-white rounded-xl mb-4 border border-slate-100">
                     {!! QrCode::size(200)->generate($peminjaman->id_peminjaman) !!}
-                </div>
+                </div> --}}
 
-                <p class="text-xs text-slate-500 mb-6">Gunakan kode ini saat pengambilan alat di gudang.</p>
+                {{-- QR Code --}}
+                @if ($peminjaman->status == 'disetujui' && $peminjaman->qr_token)
+                    <div class="mt-10 text-center">
+                        <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-4">
+                            QR Code Pengambilan
+                        </h3>
+
+                        <p class="text-sm text-gray-500 dark:text-gray-300 mb-4">
+                            Tunjukkan QR ini kepada petugas saat mengambil alat.
+                        </p>
+
+                        <div class="flex justify-center">
+                            <img src="{{ asset('storage/qrcode/' . $peminjaman->qr_token) }}"
+                                class="w-52 h-52 rounded-xl shadow-md">
+                        </div>
+                    </div>
+                @endif
+
 
                 <a href="{{ route('peminjam.peminjaman.downloadQr', $peminjaman->id) }}"
                     class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-blue-500/30 transform hover:-translate-y-1">
@@ -98,23 +114,7 @@
                 </a>
             </div>
 
-            {{-- QR Code --}}
-            @if ($peminjaman->status == 'disetujui' && $peminjaman->qr_token)
-                <div class="mt-10 text-center">
-                    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-4">
-                        QR Code Pengambilan
-                    </h3>
 
-                    <p class="text-sm text-gray-500 dark:text-gray-300 mb-4">
-                        Tunjukkan QR ini kepada petugas saat mengambil alat.
-                    </p>
-
-                    <div class="flex justify-center">
-                        <img src="{{ asset('storage/qrcode/' . $peminjaman->qr_token) }}"
-                            class="w-52 h-52 rounded-xl shadow-md">
-                    </div>
-                </div>
-            @endif
 
             {{-- Jika Pending --}}
             @if ($peminjaman->status == 'pending')
