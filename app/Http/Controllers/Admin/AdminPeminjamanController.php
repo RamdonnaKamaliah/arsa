@@ -12,4 +12,7 @@ class AdminPeminjamanController extends Controller
         $peminjaman = Peminjaman::all()->latest()->get();
         return view('admin.peminjaman.index');
     }
+
+    public function show(){
+        
 }
