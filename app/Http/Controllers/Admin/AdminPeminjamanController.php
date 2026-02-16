@@ -13,6 +13,7 @@ class AdminPeminjamanController extends Controller
         return view('admin.peminjaman.index');
     }
 
-    public function show(){
+    public function show() {
         
+    }
 }

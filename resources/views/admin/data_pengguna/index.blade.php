@@ -9,10 +9,10 @@
             <div class="flex items-center justify-between mb-2">
                 <p class="text-xs text-slate-500">Total Pengguna</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
+                    <i class="fas fa-users text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_pengguna'] }}</h3>
             <p class="text-[11px] text-slate-400">total</p>
         </div>
 
@@ -20,10 +20,10 @@
             <div class="flex items-center justify-between mb-2">
                 <p class="text-xs text-slate-500">Total Pengguna diblokir</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
+                    <i class="fas fa-lock text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_diblokir'] }}</h3>
             <p class="text-[11px] text-slate-400">total</p>
         </div>
 
@@ -31,10 +31,10 @@
             <div class="flex items-center justify-between mb-2">
                 <p class="text-xs text-slate-500">Total Role</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
+                    <i class="fas fa-circle text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_role'] }}</h3>
             <p class="text-[11px] text-slate-400">total</p>
         </div>
 
@@ -42,10 +42,10 @@
             <div class="flex items-center justify-between mb-2">
                 <p class="text-xs text-slate-500">Total Email</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
+                    <i class="fas fa-message text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_email'] }}</h3>
             <p class="text-[11px] text-slate-400">Total</p>
         </div>
     </div>
@@ -56,7 +56,7 @@
             <div class="flex flex-wrap justify-end gap-2">
                 <a href="{{ route('admin.akun-pengguna.create') }}">
                     <button
-                        class="px-6 py-3 bg-linear-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold shadow-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300">
+                        class="px-6 py-3 cursor-pointer bg-linear-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold shadow-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300">
                         <i class="fas fa-plus mr-2"></i>
                         Create Data
                     </button>
@@ -122,8 +122,9 @@
                                                 @method('PATCH')
 
                                                 <button
-                                                    class="px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600">
+                                                    class="text-green-600 cursor-pointer hover:text-white bg-green-50 hover:bg-green-500 dark:bg-green-900/30 dark:hover:bg-green-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
                                                     Unblock
+                                                    <i class="fa-solid fa-lock-open"></i>
                                                 </button>
                                             </form>
                                         @endif
@@ -147,7 +148,7 @@
                     $('#akunTable').DataTable({
                         "responsive": true,
                         "language": {
-                            "search": "Cari Kategori:",
+                            "search": "Cari Akun:",
                             "lengthMenu": "Tampilkan _MENU_ data",
                         }
                     });

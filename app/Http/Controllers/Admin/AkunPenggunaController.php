@@ -11,10 +11,19 @@ use Illuminate\Support\Facades\Password;
 
 class AkunPenggunaController extends Controller
 {
-    public function index() {
-        $akun = User::all();
-        return view('admin.data_pengguna.index', compact('akun'));
-    }
+   public function index() {
+    $stats = [
+        'total_pengguna' => User::count(),
+        'total_diblokir' => User::where('status_blokir', 1)->count(),
+        'total_role' => User::distinct('role')->count(),
+        'total_email' => User::count(), 
+    ];
+
+   $akun = User::orderBy('created_at', 'desc')->get();
+
+    return view('admin.data_pengguna.index', compact('akun', 'stats'));
+}
+
 
     public function create() {
         return view('admin.data_pengguna.create');
@@ -48,7 +57,8 @@ class AkunPenggunaController extends Controller
     $user = User::findOrFail($id);
 
     $user->update([
-        'status_blokir' => false
+        'status_blokir' => false,
+        'masa_blokir' => false
     ]);
 
     Aktivitas::simpanLog(
@@ -68,7 +78,6 @@ class AkunPenggunaController extends Controller
 
         $namaAkun = $akun->name;
         
-        $akun->
         $akun->aktivitas()->delete(); 
         $akun->delete();
 
@@ -76,4 +85,11 @@ class AkunPenggunaController extends Controller
 
         return redirect()->route('admin.akun-pengguna.index')->with('success', 'Akun berhasil di hapus');
     }
+
+    public function show(String $id){
+        $user = User::findOrFail($id);
+        return view('admin.data_pengguna.show', compact('user'));
+    }
+
+   
 }
