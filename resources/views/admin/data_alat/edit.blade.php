@@ -66,6 +66,15 @@
                     <div class="mb-4">
                         <label for="foto_alat" class="block text-gray-700 font-semibold mb-2 dark:text-gray-300">
                             Foto Alat</label>
+                            @if ($alat->foto_alat)
+                                <div class="mb-2">
+                                    <p class="text-gray-500 text-sm mb-2">Foto alat saat ini</p>
+                                    <img src="{{ asset('storage/' . $alat->foto_alat) }}" alt="foto_alat" 
+                                    class="aspect-4/3 object-cover rounded-lg border-gray-200 border-2 border-dashed">
+                                </div>
+                            @endif
+                        
+                        <p class="text-gray-500 text-sm mb-2">Pilih untuk mengganti foto</p>
                         <input type="file" id="foto_alat" name="foto_alat"
                             class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-500 transition">
                         @error('foto_alat')

@@ -58,7 +58,7 @@ class AkunPenggunaController extends Controller
 
     $user->update([
         'status_blokir' => false,
-        'masa_blokir' => false
+        'masa_blokir' => null
     ]);
 
     Aktivitas::simpanLog(

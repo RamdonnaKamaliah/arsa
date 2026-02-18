@@ -9,11 +9,12 @@ use App\Models\Peminjaman;
 class AdminPeminjamanController extends Controller
 {
     public function index(){
-        $peminjaman = Peminjaman::all()->latest()->get();
-        return view('admin.peminjaman.index');
+        $peminjaman = Peminjaman::latest()->get();
+        return view('admin.peminjaman.index', compact('peminjaman'));
     }
 
-    public function show() {
-        
+    public function show(String $id) {
+        $peminjaman = Peminjaman::findOrFail($id);
+        return view ('admin.peminjaman.show', compact('peminjaman'));
     }
 }

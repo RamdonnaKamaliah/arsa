@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Aktivitas;
-use Illuminate\Http\Request;
+
 
 class AdminAktivitasController extends Controller
 {

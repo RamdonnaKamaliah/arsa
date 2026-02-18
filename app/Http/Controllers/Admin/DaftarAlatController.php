@@ -6,10 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Aktivitas;
 use App\Models\Alat;
 use App\Models\KategoriAlat;
+// use BaconQrCode\Encoder\QrCode;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
+
 
 
 class DaftarAlatController extends Controller
@@ -44,13 +48,28 @@ class DaftarAlatController extends Controller
         }
 
         try{
-            Alat::create([
+
+            $kodeBarang = 'BRG-' . strtoupper(Str::random(6));
+        
+            $alat = Alat::create([
                 'id_alat' => Str::uuid(),
                 'id_kategori' => $request->id_kategori,
                 'nama_alat' => $request->nama_alat,
                 'stok' => $request->stok,
-                'foto_alat' => $fotoPath
+                'foto_alat' => $fotoPath,
+                'qr_code' => $kodeBarang,
+                 'kode_barang' => $kodeBarang,
             ]);
+
+            $qrImage = QrCode::format('svg')->size(300)->generate($kodeBarang);
+            $fileName = "qr_alat_" . $alat->id_alat . ".svg";
+
+            Storage::disk('public')->put('qrcode/' . $fileName, $qrImage);
+
+            // ✅ Simpan nama file QR ke database
+            $alat->qr_code = $fileName;
+            $alat->save();
+        
 
             Aktivitas::simpanLog('Tambah', 'Alat', 'Menambahkan alat baru:' . $request->nama_alat);
 

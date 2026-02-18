@@ -71,6 +71,8 @@
                         <tr>
                             <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Foto</th>
                             <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Nama Alat</th>
+                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">QR Code</th>
+                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Kode Barang</th>
                             <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Stok</th>
                             <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Action</th>
                         </tr>
@@ -88,6 +90,16 @@
                                     @endif
                                 </td>
                                 <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">{{ $row->nama_alat }}</td>
+                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">
+                                    @if ($row->qr_code)
+                                        <img src="{{ asset('storage/qrcode/' . $row->qr_code) }}" alt="qr code"
+                                            class="w-16 h-16 object-cover rounded-md">
+                                    @else
+                                        <img src="{{ 'assets/no-image.png' }}" alt="No Image"
+                                            class="w-16 h-16 object-cover rounded-md">
+                                    @endif
+                                </td>
+                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">{{ $row->kode_barang }}</td>
                                 <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">{{ $row->stok }}</td>
                                 <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2 text-center">
                                     <div class="flex justify-center space-x-1 md:space-x-2">
@@ -96,7 +108,7 @@
                                             <i class="fas fa-edit"></i> <span class="hidden sm:inline">Edit</span>
                                         </a>
 
-                                         <a href="{{ route('admin.data-alat.show', $row->id) }}"
+                                        <a href="{{ route('admin.data-alat.show', $row->id) }}"
                                             class="text-green-600 hover:text-white bg-green-50 hover:bg-green-500 dark:bg-green-900/30 dark:hover:bg-green-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
                                             <i class="fas fa-eye"></i> <span class="hidden sm:inline">Show</span>
                                         </a>
@@ -122,7 +134,7 @@
         </div>
     </div>
 
-     @push('scripts')
+    @push('scripts')
         <script>
             $(document).ready(function() {
                 // Cek apakah jquery jalan

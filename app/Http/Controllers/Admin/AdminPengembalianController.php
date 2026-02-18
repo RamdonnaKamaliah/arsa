@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Pengembalian;
 
 class AdminPengembalianController extends Controller
 {
     public function index(){
-        return view('admin.pengembalian.index');
+        $pengembalian = Pengembalian::latest()->get();
+        return view('admin.pengembalian.index', compact('pengembalian'));
+    }
+
+    public function show(String $id){
+        $pengembalian = Pengembalian::findOrFail($id);
+        return view('admin.pengembalian.show', compact('pengembalian'));
     }
 }

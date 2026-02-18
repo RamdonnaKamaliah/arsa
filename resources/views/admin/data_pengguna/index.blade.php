@@ -65,7 +65,7 @@
 
 
             <div class="overflow-x-auto mt-4">
-                <table id="akunTable" class="w-full border border-gray-300 text-xs md:text-sm dark:border-gray-600">
+                <table id="akunTable" class="w-full text-xs md:text-sm dark:border-gray-600">
                     <thead class="bg-gray-200 text-gray-800 dark:bg-slate-700 dark:text-gray-100">
                         <tr>
                             <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Nama</th>
@@ -87,9 +87,9 @@
                                 </td>
                                 <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2 text-center">
                                     @if ($row->status_blokir)
-                                        <span class="text-red-600 font-semibold">Diblokir</span>
+                                        <span class="text-red-600 font-semibold">Aktif</span>
                                     @else
-                                        <span class="text-green-600 font-semibold">Aktif</span>
+                                        <span class="text-green-600 font-semibold">Tidak Aktif</span>
                                     @endif
                                 </td>
                                 <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2 text-center">

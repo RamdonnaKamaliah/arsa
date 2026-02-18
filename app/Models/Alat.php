@@ -13,7 +13,8 @@ class Alat extends Model
     'id_kategori',
     'nama_alat',
     'stok',
-    'foto_alat'
+    'foto_alat',
+    'kode_barang'
     ];
 
     public function kategori() {
