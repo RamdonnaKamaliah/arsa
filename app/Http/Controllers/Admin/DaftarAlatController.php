@@ -19,8 +19,15 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 class DaftarAlatController extends Controller
 {
     public function index(){
+         $stats = [
+        'total_alat' => Alat::count(),
+        'total_kategori' => Alat::whereNotNull('id_kategori')->count(),
+        'total_qrcode' => Alat::distinct('qr_code')->count(),
+        'total_stok' =>Alat::sum('stok'), 
+    ];
+
          $alat = Alat::with('kategori')->latest()->get();
-        return view('admin.data_alat.index', compact('alat'));
+        return view('admin.data_alat.index', compact('alat', 'stats'));
     }
 
     public function create() {

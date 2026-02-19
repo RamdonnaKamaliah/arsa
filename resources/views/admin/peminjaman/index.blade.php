@@ -8,46 +8,46 @@
 
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total peminjamans</p>
+                <p class="text-xs text-slate-500">Total peminjaman</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
                     <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
-            <p class="text-[11px] text-slate-400">peminjaman Count</p>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_peminjaman'] }}</h3>
+            <p class="text-[11px] text-slate-400">Count</p>
         </div>
 
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total peminjamans</p>
+                <p class="text-xs text-slate-500">Total Alat Kembali</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
                     <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
-            <p class="text-[11px] text-slate-400">peminjaman Count</p>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_barangKembali'] }}</h3>
+            <p class="text-[11px] text-slate-400">Count</p>
         </div>
 
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total peminjamans</p>
+                <p class="text-xs text-slate-500">Total Peminjaman Pending</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
                     <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
-            <p class="text-[11px] text-slate-400">peminjaman Count</p>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_barangPending'] }}</h3>
+            <p class="text-[11px] text-slate-400">Count</p>
         </div>
 
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total peminjamans</p>
+                <p class="text-xs text-slate-500">Total peminjaman Ditolak</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
                     <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
-            <p class="text-[11px] text-slate-400">peminjaman Count</p>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_barangDitolak'] }}</h3>
+            <p class="text-[11px] text-slate-400">Count</p>
         </div>
     </div>
 

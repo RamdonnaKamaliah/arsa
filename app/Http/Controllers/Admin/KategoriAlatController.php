@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Aktivitas;
+use App\Models\Alat;
 use App\Models\KategoriAlat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -12,8 +13,15 @@ class KategoriAlatController extends Controller
 {
     public function index()
     {
+          $stats = [
+        'total_alat' => Alat::count(),
+        'total_kategori' => Alat::whereNotNull('id_kategori')->count(),
+        'total_qrcode' => Alat::distinct('qr_code')->count(),
+        'total_stok' =>Alat::sum('stok'), 
+    ];
+        
         $kategori = KategoriAlat::latest()->get();
-        return view('admin.kategori_alat.index', compact('kategori'));
+        return view('admin.kategori_alat.index', compact('kategori', 'stats'));
     }
 
     public function create() {

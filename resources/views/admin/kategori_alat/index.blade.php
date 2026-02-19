@@ -8,46 +8,46 @@
 
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total Articles</p>
+                <p class="text-xs text-slate-500">Total Alat</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
+                    <i class="fas fa-box text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
-            <p class="text-[11px] text-slate-400">Article Count</p>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_alat'] }}</h3>
+            <p class="text-[11px] text-slate-400">Total</p>
         </div>
 
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total Articles</p>
+                <p class="text-xs text-slate-500">Total Kategori Alat</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
+                    <i class="fas fa-tags text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
-            <p class="text-[11px] text-slate-400">Article Count</p>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_kategori'] }}</h3>
+            <p class="text-[11px] text-slate-400">Total</p>
         </div>
 
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total Articles</p>
+                <p class="text-xs text-slate-500">Total Qr Code</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
+                    <i class="fas fa-qrcode text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
-            <p class="text-[11px] text-slate-400">Article Count</p>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_qrcode'] }}</h3>
+            <p class="text-[11px] text-slate-400">Total</p>
         </div>
 
-        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total Articles</p>
-                <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-file-alt text-sm text-blue-600 dark:text-blue-400"></i>
+                <p class="text-xs text-slate-500">Total Stok</p>
+                <div class="w-8 h-8 rounded-lg bg-tertiary/100 dark:bg-blue-900/40 flex items-center justify-center">
+                    <i class="fas fa-cubes text-sm text-primary dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">54</h3>
-            <p class="text-[11px] text-slate-400">Article Count</p>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_stok'] }}</h3>
+            <p class="text-[11px] text-slate-400">Total</p>
         </div>
     </div>
 
