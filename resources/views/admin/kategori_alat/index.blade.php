@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 px-1 mb-2">
-
+        <div>jakljdajldjalj</div>
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
             <div class="flex items-center justify-between mb-2">
                 <p class="text-xs text-slate-500">Total Alat</p>
