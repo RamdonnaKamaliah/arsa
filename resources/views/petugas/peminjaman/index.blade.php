@@ -16,6 +16,9 @@
                     <h2 class="text-lg font-bold">
                         {{ $p->user->name }}
                     </h2>
+                    <h2 class="text-lg font-bold">
+                        {{ $p->user->name }}
+                    </h2>
 
                     <p class="text-sm text-gray-500">
                         Tanggal: {{ $p->tanggal_pengambilan_rencana }}
