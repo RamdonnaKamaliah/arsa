@@ -23,9 +23,7 @@
                     <p class="text-sm text-gray-500">
                         Tanggal: {{ $p->tanggal_pengambilan_rencana }}
                     </p>
-                    <p class="text-sm text-gray-500">
-                        Tanggal: {{ $p->tanggal_pengambilan_rencana }}
-                    </p>
+                   
 
                     
 
