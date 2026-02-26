@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 class PeminjamanController extends Controller
 {
     public function index() {
+
+        Peminjaman::where('status', 'pending')->where('created_at', '<=', now()->subDay())->update(['status' => 'expired']);
+    
         $peminjaman = Peminjaman::with('user', 'detail.alat')->latest()->get();
         return view('petugas.peminjaman.index', compact('peminjaman'));
     }
@@ -73,6 +76,11 @@ public function verifyScan(Request $request)
         ]);
 
         return back()->with('success', 'Peminjaman berhasil ditolak');
+    }
+
+    public function show(String $id){
+        $peminjaman = Peminjaman::with('user', 'detail.alat')->findOrFail($id);
+        return view('petugas.peminjaman.show', compact('peminjaman'));
     }
 
 

@@ -16,16 +16,11 @@
                     <h2 class="text-lg font-bold">
                         {{ $p->user->name }}
                     </h2>
-                    <h2 class="text-lg font-bold">
-                        {{ $p->user->name }}
-                    </h2>
+
 
                     <p class="text-sm text-gray-500">
                         Tanggal: {{ $p->tanggal_pengambilan_rencana }}
                     </p>
-                   
-
-                    
 
                     <span
                         class="px-3 py-1 text-xs rounded-full
@@ -37,7 +32,7 @@
                     </span>
                 </div>
 
-                
+
 
                 {{-- Tombol Approve/Reject --}}
                 @if ($p->status == 'pending')
@@ -56,24 +51,17 @@
                             class="px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700">
                             Tolak
                         </button>
-
                     </div>
-                @elseif ($p->status == 'ditolak')
-                    <p class="text-red-500 italic">
-                        Peminjaman Ditolak
-                    </p>
-                @elseif ($p->status == 'disetujui')
-                    <button onclick="openScanModal({{ $p->id }})"
-                        class="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700">
-                        Scan QR
-                    </button>
                 @else
-                    <p class="text-gray-500 italic">
-                        Alat Sudah diambil
-                    </p>
+                    <div>
+                        <a href="{{ route('petugas.peminjaman.show', $p->id) }}"
+                            class="text-green-600 hover:text-white bg-green-50 hover:bg-green-500 dark:bg-green-900/30 dark:hover:bg-green-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
+                            <i class="fas fa-eye"></i> <span class="hidden sm:inline">Show</span>
+                        </a>
+                    </div>
                 @endif
-    </div>
-    @endforeach
+            </div>
+        @endforeach
 
     </div>
 

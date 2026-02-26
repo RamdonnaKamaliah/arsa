@@ -61,10 +61,10 @@
         {{-- Nama & Role --}}
         <div class="hidden sm:block leading-tight">
             <p class="text-gray-800 font-semibold text-sm">
-                Admin1
+                Petugas
             </p>
             <p class="text-gray-500 text-xs">
-                {{ $admin->role ?? 'Administrator' }}
+                {{ $admin->role ?? 'Petugas' }}
             </p>
         </div>
 

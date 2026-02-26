@@ -64,18 +64,16 @@ Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->name('petugas.')
 
     // peminjaman
     Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
+    Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
     Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
     Route::post('/peminjaman/{id}/approve', [PeminjamanController::class, 'approve'])->name('peminjaman.approve');
     Route::post('/peminjaman/{id}/reject', [PeminjamanController::class, 'reject'])->name('peminjaman.reject');
     Route::get('/petugas/peminjaman/{id}/scan', [PeminjamanController::class, 'scan'])->name('peminjaman.scan');
     Route::post('/petugas/peminjaman/scan/verify', [PeminjamanController::class, 'verifyScan'])->name('peminjaman.scan.verify');
     Route::post('/peminjaman/{id}/reject', [PeminjamanController::class, 'reject'])->name('peminjaman.reject');
-
-Route::post('/pengembalian/verify/{id}', [PengembalianController::class, 'verifyPengembalian'])
+    Route::post('/pengembalian/verify/{id}', [PengembalianController::class, 'verifyPengembalian'])
     ->name('petugas.pengembalian.verifyPengembalian');
-
     Route::get('/laporan/peminjaman', [LaporanController::class, 'index'])->name('laporan.index');
-
     Route::get('/laporan/peminjaman/unduh', [LaporanController::class, 'unduh'])->name('laporan.unduh');
 
 
