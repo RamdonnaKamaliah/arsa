@@ -22,6 +22,9 @@
                 <p><span class="font-semibold">Peminjam:</span> {{ $peminjaman->user->name }}</p>
                 <p><span class="font-semibold">Tanggal Ambil:</span> {{ $peminjaman->tanggal_pengambilan_rencana }}</p>
                 <p><span class="font-semibold">Tanggal Kembali:</span> {{ $peminjaman->tanggal_pengembalian_rencana }}</p>
+                <p><span class="font-semibold">Peminjam:</span> {{ $peminjaman->user->name }}</p>
+                <p><span class="font-semibold">Tanggal Ambil:</span> {{ $peminjaman->tanggal_pengambilan_rencana }}</p>
+                <p><span class="font-semibold">Tanggal Kembali:</span> {{ $peminjaman->tanggal_pengembalian_rencana }}</p>
 
                 <p class="mt-2">
                     <span class="font-semibold">Status:</span>
@@ -80,7 +83,6 @@
                     @endforeach
                 </div>
             </div>
-
         </div>
     </div>
 
