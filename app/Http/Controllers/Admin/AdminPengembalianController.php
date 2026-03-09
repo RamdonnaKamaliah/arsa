@@ -14,6 +14,7 @@ class AdminPengembalianController extends Controller
         'total_catatan' => Pengembalian::distinct('catatan')->count(),
         'total_kondisiRusak' => Pengembalian::where('kondisi_kembali', 'rusak')->count(),
         'total_kondisiBaik' => Pengembalian::where('kondisi_kembali', 'baik')->count(),
+        'total_kondisiBaik' => Pengembalian::where('kondisi_kembali', 'baik')->count(),
     ];
 
         $pengembalian = Pengembalian::latest()->get();
